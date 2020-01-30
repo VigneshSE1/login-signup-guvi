@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col">
+                <form id="login_form" method="POST">
+                    <div class="login_email_class">
+                        <label for="emailid">Email</label>
+                        <br>
+                        <input type="email" id="login_email" placeholder="Email">
+                        <br>
+                        <small id="email_error">Entered Email doesn't exist</small>
+                    </div>
+                    <div class="login_password_class">
+                        <label for="login_password">Confirm Password</label>
+                        <br>
+                        <input type="password" id="login_password" placeholder="Password">
+                        <button class="login_password_class" id="show_password_id">Show</button>
+                        <br>
+                        <small id="login_password_error">Password doesn't match</small>
+                    </div>
+                    <br>
+                    <div class="submit_class" id="form_submit">
+                        <input type="submit" value="Login" class="submit_class" id="submit_id">
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+
+
+
+</body>
+
+</html>
