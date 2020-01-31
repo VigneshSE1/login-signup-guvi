@@ -5,9 +5,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require("bcrypt");
 const saltRounds = 5;
-//const jwt = require('jsonwebtoken');
-
-//var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+const fs = require('fs');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -63,6 +61,28 @@ app.post('/register', function (req, res) {
                                 throw err;
                             } else {
                                 console.log(result);
+
+                                fs.readFile('userdetails.json', (err, data) => {
+                                    if (err) throw err;
+
+                                    let userArray = JSON.parse(data);
+
+                                    let userData = {
+                                        firstname: req.body.firstname,
+                                        lastname: req.body.lastname,
+                                        email: req.body.email,
+                                        gender: req.body.gender,
+                                        dob: req.body.dob,
+                                    }
+                                    console.log(userData);
+                                    userArray.push(userData);
+
+                                    let data2 = JSON.stringify(userArray);
+
+                                    fs.writeFileSync("userdetails.json", data2)
+
+                                });
+
                                 res.json({
                                     message: "registerSuccess",
                                 })

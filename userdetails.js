@@ -3,7 +3,7 @@ $(document).ready(function () {
 });
 
 $("#edit_details").click(function () {
-    $("#edit_User_Form").show();
+    $("#edit_User_Form").toggle();
 })
 
 var emaiid = localStorage.getItem("userLoginEmail");
