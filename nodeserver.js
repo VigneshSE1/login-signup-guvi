@@ -226,6 +226,38 @@ app.post('/edituserdetails', function (req, res) {
         }
         else {
             console.log(result);
+
+            fs.readFile('userdetails.json', (err, data) => {
+                if (err) throw err;
+
+                let userArray = JSON.parse(data);
+
+                let userData = {
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    gender: req.body.gender,
+                    dob: req.body.dob,
+                }
+
+                userArray.map(function (element) {
+
+                    if (element["email"] == userData["email"]) {
+                        element["firstname"] = userData.firstname,
+                            element["lastname"] = userData.lastname,
+                            element["gender"] = userData.gender,
+                            element["dob"] = userData.dob
+                    }
+
+                })
+
+                let data2 = JSON.stringify(userArray);
+
+                fs.writeFileSync("userdetails.json", data2)
+
+            });
+
+
             res.json({
                 message: "success",
                 data: result,

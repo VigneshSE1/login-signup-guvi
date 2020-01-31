@@ -1,7 +1,1 @@
-[{
-    "firstname": "myname4",
-    "lastname": "mine",
-    "email": "mine4@gmail.com",
-    "gender": "male",
-    "dob": "2020-01-01"
-}]
+[{"firstname":"myname4","lastname":"mine","email":"mine4@gmail.com","gender":"male","dob":"2020-01-01"},{"firstname":"sidhatgh","lastname":"sifjd","email":"sid@gmail.com","gender":"male","dob":"2020-01-02"}]
