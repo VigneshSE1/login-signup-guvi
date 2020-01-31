@@ -4,7 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const saltRounds = 5;
+const jwt = require('jsonwebtoken');
+
+var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -33,20 +36,23 @@ app.post('/register', function (req, res) {
     connection.query(emailcheck, function (err, result) {
         if (err) {
             throw err;
-        }
-        else {
+        } else {
             if (result[0].count > 0) {
                 res.json({
-                    message: "error",
+                    message: "emailExist",
                 })
-            }
-            else {
+            } else {
 
                 bcrypt.genSalt(saltRounds, function (err, salt) {
                     bcrypt.hash(req.body.password, salt, function (err, hash) {
                         let data = {
+                            firstname: req.body.firstname,
+                            lastname: req.body.lastname,
                             email: req.body.email,
                             password: hash,
+                            gender: req.body.gender,
+                            dob: req.body.dob,
+
                         }
                         console.log(data);
                         let sql = `INSERT INTO mytable1 SET ?`;
@@ -55,15 +61,14 @@ app.post('/register', function (req, res) {
                         connection.query(sql, function (err, result) {
                             if (err) {
                                 throw err;
-                            }
-                            else {
+                            } else {
                                 console.log(result);
                                 res.json({
-                                    message: "acess",
+                                    message: "registerSuccess",
                                 })
                                 connection.end(function (err) {
                                     if (err) throw err;
-                                    console.log("db closed") // The connection is terminated now
+                                    console.log("db closed")
                                 });
                             }
                         })
@@ -85,11 +90,6 @@ app.post('/login', function (req, res) {
         console.log("Connected!");
     });
 
-    let checkdata = {
-        email: req.body.email,
-        password: req.body.password,
-    }
-
     let emailQuery = `SELECT COUNT(*) AS count FROM mytable1 WHERE email = ? `
 
     emailQuery = mysql.format(emailQuery, req.body.email);
@@ -108,21 +108,19 @@ app.post('/login', function (req, res) {
 
                     if (err) {
                         throw err;
-                    }
-                    else {
+                    } else {
                         console.log(result[0].password);
 
                         bcrypt.compare(req.body.password, result[0].password, function (err, valid) {
                             if (valid) {
                                 console.log(valid);
-                                res.json({
-                                    message: "susscess",
+                                res.status(200).json({
+                                    message: "loginSuccess",
                                 })
-                            }
-                            else {
+                            } else {
                                 console.log(valid);
                                 res.json({
-                                    message: "notsucee",
+                                    message: "loginNotSuccess",
                                 })
                             }
 
@@ -135,13 +133,91 @@ app.post('/login', function (req, res) {
                 })
 
             } else {
-
+                res.json({
+                    message: "emailNotExist",
+                })
             }
         }
     })
 
 
 })
+
+app.get('/userdetails', function (req, res) {
+
+    var user = {
+        email: "vignesh2@gmail.com"
+    }
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+    });
+
+    let userQuery = `SELECT firstname,lastname,dob,gender FROM mytable1 WHERE email = "vignesh2@gmail.com" `
+
+    userQuery = mysql.format(userQuery, user.email);
+
+    connection.query(userQuery, function (err, result) {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log(result);
+            res.json({
+                message: "success",
+                data: result,
+            });
+            connection.end(function (err) {
+                if (err) throw err;
+                console.log("db closed");
+            });
+        }
+
+    })
+
+})
+
+app.post('/edituserdetails', function (req, res) {
+
+    var user = {
+        email: "vignesh2@gmail.com",
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        gender: req.body.gender,
+        dob: req.body.dob,
+    }
+    console.log(user);
+
+    connection.connect(function (err) {
+        if (err) throw err;
+        console.log("Connected!");
+    });
+
+    let edituserQuery = `UPDATE mytable1 SET firstname = ? ,lastname = ?, gender = ? ,dob = ? WHERE email = "vignesh2@gmail.com" `
+
+    //edituserQuery = mysql.format(edituserQuery, user.email);
+
+    connection.query(edituserQuery, [req.body.firstname, req.body.lastname, req.body.gender, req.body.dob], function (err, result) {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log(result);
+            res.json({
+                message: "success",
+                data: result,
+            });
+            connection.end(function (err) {
+                if (err) throw err;
+                console.log("db closed");
+            });
+        }
+
+    })
+
+})
+
 
 
 app.listen(3000);

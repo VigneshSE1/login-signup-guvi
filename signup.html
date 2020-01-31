@@ -19,6 +19,13 @@
         <div class="row">
             <div class="col-lg-6">
                 <form id="signup_form" method="POST">
+                    <div class="signup_nameclass">
+                        <label for="firstname">Firstname</label>
+                        <input type="text" id="signup_firstname_id">
+                        <label for="Lastname">Lastname</label>
+                        <input type="text" id="signup_lastname_id">
+                    </div>
+
                     <div class="signup_email_class">
                         <label for="emailid">Email</label>
                         <br>
@@ -36,9 +43,18 @@
                         <label for="confirm_password">Confirm Password</label>
                         <br>
                         <input type="password" id="signup_confirm_password" placeholder="Confirm Password">
-                        <button class="show_confirm_password_class" id="show_confirm_password_id">Show</button>
                         <br>
                         <small id="password_error">Password doesn't match</small>
+                    </div>
+                    <div class="signup_gender_dob">
+                        <label for="gender">Gender</label>
+                        <input type="radio" value="male" name="gender">Male
+                        <input type="radio" value="female" name="gender">Female
+                        <input type="radio" value="custom" name="gender">Custom
+                        <br>
+                        <label for="dob">DOB</label>
+                        <input type="date" id="dob_id">
+                        <br>
                     </div>
                     <br>
                     <div class="submit_class" id="form_submit">

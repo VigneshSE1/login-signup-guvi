@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body onload="userdetails()">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-lg-6">
+                <h4>Firstname</h4>
+                <h5 id="userinfo_firstname"></h5>
+                <h4>LastName</h4>
+                <h5 id="userinfo_lastname"></h5>
+                <h4>Gender</h4>
+                <h5 id="userinfo_gender"></h5>
+                <h4>Date of Birth</h4>
+                <h5 id="userinfo_dob"></h5>
+                <button id="edit_details">EDIT</button>
+                <button onclick="userdetails()">get user data</button>
+            </div>
+            <div class="col-lg-6">
+                <form method="POST" id="edit_User_Form">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" id="edit_firstname_id">
+                    <br>
+                    <label for="Lastname">Lastname</label>
+                    <input type="text" id="edit_lastname_id">
+                    <br>
+                    <label for="gender">Gender</label>
+                    <input type="radio" value="male" name="edit_gender">Male
+                    <input type="radio" value="female" name="edit_gender">Female
+                    <input type="radio" value="custom" name="edit_gender">Custom
+                    <br>
+                    <label for="dob">DOB</label>
+                    <input type="date" id="edit_dob_id">
+                    <br>
+                    <input type="submit" id="submit_edit_form">
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="userdetails.js"></script>
+</body>
+
+</html>
