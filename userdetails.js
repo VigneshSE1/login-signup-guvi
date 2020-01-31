@@ -6,8 +6,10 @@ $("#edit_details").click(function () {
     $("#edit_User_Form").show();
 })
 
+var emaiid = localStorage.getItem("userLoginEmail");
+
 var user = {
-    email: "console@gmail.com"
+    email: emaiid,
 }
 
 function userdetails() {
@@ -41,6 +43,7 @@ $("#submit_edit_form").click("submit", function (event) {
     event.preventDefault();
 
     var userinfo = {
+        email: emaiid,
         firstname: $("#edit_firstname_id").val(),
         lastname: $("#edit_lastname_id").val(),
         dob: $("#edit_dob_id").val(),

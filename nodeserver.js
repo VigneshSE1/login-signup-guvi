@@ -146,7 +146,7 @@ app.post('/login', function (req, res) {
 app.get('/userdetails', function (req, res) {
 
     var user = {
-        email: "vignesh2@gmail.com"
+        email: req.body.email,
     }
 
     connection.connect(function (err) {
@@ -154,7 +154,7 @@ app.get('/userdetails', function (req, res) {
         console.log("Connected!");
     });
 
-    let userQuery = `SELECT firstname,lastname,dob,gender FROM mytable1 WHERE email = "vignesh2@gmail.com" `
+    let userQuery = `SELECT firstname,lastname,dob,gender FROM mytable1 WHERE email = ?`
 
     userQuery = mysql.format(userQuery, user.email);
 
@@ -181,7 +181,7 @@ app.get('/userdetails', function (req, res) {
 app.post('/edituserdetails', function (req, res) {
 
     var user = {
-        email: "vignesh2@gmail.com",
+        email: req.body.email,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         gender: req.body.gender,
@@ -194,11 +194,11 @@ app.post('/edituserdetails', function (req, res) {
         console.log("Connected!");
     });
 
-    let edituserQuery = `UPDATE mytable1 SET firstname = ? ,lastname = ?, gender = ? ,dob = ? WHERE email = "vignesh2@gmail.com" `
+    let edituserQuery = `UPDATE mytable1 SET firstname = ? ,lastname = ?, gender = ? ,dob = ? WHERE email = ? `
 
     //edituserQuery = mysql.format(edituserQuery, user.email);
 
-    connection.query(edituserQuery, [req.body.firstname, req.body.lastname, req.body.gender, req.body.dob], function (err, result) {
+    connection.query(edituserQuery, [req.body.firstname, req.body.lastname, req.body.gender, req.body.dob, req.body.email], function (err, result) {
         if (err) {
             throw err;
         }

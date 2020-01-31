@@ -39,6 +39,9 @@ $("#submit_id").click(function (event) {
                 if (result.message == "emailExist") {
                     $("#email_error").show();
                 }
+                else {
+                    window.location = "file:///D:/Capstone/login-signup/login.html"
+                }
 
             }
         }

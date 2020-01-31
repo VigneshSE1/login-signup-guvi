@@ -29,12 +29,14 @@ $("#submit_id").click(function (event) {
         if (this.readyState == 4 && this.status == 200) {
             var result = JSON.parse(this.responseText)
             console.log(result);
-            if (result.messsage == "emailNotExist") {
+            if (result.message == "emailNotExist") {
                 $("#email_error").show();
-            } else if (result.messsage == "loginSuccess") {
+            } else if (result.message == "loginSuccess") {
 
-                console.log("login");
-            } else if (result.messsage == "loginNotSuccess") {
+                localStorage.setItem("userLoginEmail", loginInput.email);
+                window.location = "file:///D:/Capstone/login-signup/userdetails.html"
+
+            } else if (result.message == "loginNotSuccess") {
                 $("#login_password_error").show();
             }
         }
