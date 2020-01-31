@@ -25,7 +25,7 @@ function userdetails() {
 
         }
     }
-    xhttp.open("GET", "http://localhost:3000/userdetails", true);
+    xhttp.open("POST", "http://localhost:3000/userdetails", true);
 
     xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 

@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const bcrypt = require("bcrypt");
 const saltRounds = 5;
-const jwt = require('jsonwebtoken');
+//const jwt = require('jsonwebtoken');
 
-var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
+//var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -143,11 +143,12 @@ app.post('/login', function (req, res) {
 
 })
 
-app.get('/userdetails', function (req, res) {
+app.post('/userdetails', function (req, res) {
 
     var user = {
         email: req.body.email,
     }
+    console.log(user);
 
     connection.connect(function (err) {
         if (err) throw err;
@@ -181,11 +182,12 @@ app.get('/userdetails', function (req, res) {
 app.post('/edituserdetails', function (req, res) {
 
     var user = {
-        email: req.body.email,
+
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         gender: req.body.gender,
         dob: req.body.dob,
+        email: req.body.email,
     }
     console.log(user);
 
@@ -196,9 +198,9 @@ app.post('/edituserdetails', function (req, res) {
 
     let edituserQuery = `UPDATE mytable1 SET firstname = ? ,lastname = ?, gender = ? ,dob = ? WHERE email = ? `
 
-    //edituserQuery = mysql.format(edituserQuery, user.email);
+    //edituserQuery = mysql.format(edituserQuery, user);
 
-    connection.query(edituserQuery, [req.body.firstname, req.body.lastname, req.body.gender, req.body.dob, req.body.email], function (err, result) {
+    connection.query(edituserQuery, [user.firstname, user.lastname, user.gender, user.dob, user.email], function (err, result) {
         if (err) {
             throw err;
         }
@@ -217,6 +219,7 @@ app.post('/edituserdetails', function (req, res) {
     })
 
 })
+
 
 
 
